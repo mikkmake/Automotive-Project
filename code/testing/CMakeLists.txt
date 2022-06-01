@@ -15,6 +15,9 @@ qt_add_qml_module(apptesting
     URI testing
     VERSION 1.0
     QML_FILES main.qml 
+    RESOURCES
+      ../Images/MusicPlayer_Cover.png
+      MusicPlayer_Cover.png
 )
 
 set_target_properties(apptesting PROPERTIES
