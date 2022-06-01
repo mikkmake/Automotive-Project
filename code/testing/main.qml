@@ -8,6 +8,6 @@ Window {
     Rectangle {
         anchors.centerIn: parent
         width: 200; height: width
-        color: "red"
+        color: "blue"
     }
 }
