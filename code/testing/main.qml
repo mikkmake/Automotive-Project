@@ -8,11 +8,11 @@ Window {
     Rectangle {
         anchors.centerIn: parent
         width: 200; height: width
-        color: "red"
         Text {
             anchors.centerIn: parent
             text: "Helou vöörldd"
             color: "black"
         }
+        color: "blue"
     }
 }
