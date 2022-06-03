@@ -6,14 +6,32 @@ Window {
     height: 480
     visible: true
     title: qsTr("Hello World")
-    // Testindicator for turning on/off
-    Text {
+
+    // For testing purposes, text-displays values
+    Row {
+      id: indicatorRow
       anchors.horizontalCenter: parent.horizontalCenter
-      text: CarControl.turnedOn
+      spacing: 5
+      Text {
+        text: "turnedOn: " + CarControl.turnedOn
+      }
+      Text {
+        text: "yaw: " + CarControl.yaw
+      }
+      Text {
+        text: "pitch: " + CarControl.pitch
+      }
     }
 
-    PowerButton{
+    // For now, we'll just place components in a row
+    Row {
+      id: componentRow
+      anchors.centerIn: parent
+      PowerButton{
         turnedOn: CarControl.turnedOn
-        anchors.centerIn: parent
+      }
+      SteeringWheel{
+
+      }
     }
 }

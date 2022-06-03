@@ -27,9 +27,11 @@ qt_add_qml_module(appSpaceCar
     QML_FILES
       main.qml
       PowerButton.qml
+      SteeringWheel.qml
     RESOURCES
       power_button_off.png
       power_button_on.png
+      steering_wheel.png
 )
 
 set_target_properties(appSpaceCar PROPERTIES
