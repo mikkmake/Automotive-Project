@@ -7,8 +7,18 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
+set(HEADERS
+  carcontrol.h
+)
+
+set(SOURCES
+  main.cpp
+  carcontrol.cpp
+)
+
 qt_add_executable(appSpaceCar
-    main.cpp
+  ${HEADERS}
+  ${SOURCES}
 )
 
 qt_add_qml_module(appSpaceCar

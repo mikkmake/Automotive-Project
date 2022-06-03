@@ -1,8 +1,14 @@
-import QtQuick 2.0
+/* PowerButton component
+
+  */
+
+import QtQuick
+import SpaceCar
 
 Item {
   id: root
-  property bool turnedOn: false
+  required property bool turnedOn
+
   width: 200; height: width
   Image {
       anchors.fill: parent
@@ -10,7 +16,10 @@ Item {
       source: turnedOn ? "power_button_on.png" : "power_button_off.png"
       MouseArea {
           anchors.fill: parent
-          onClicked: turnedOn = !turnedOn
+          onClicked: {
+            // Flip SpaceCar on/off
+            CarControl.turnedOn = !CarControl.turnedOn
+          }
       }
   }
 }
