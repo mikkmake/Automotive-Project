@@ -5,7 +5,7 @@ Window {
     width: 640
     height: 480
     visible: true
-    title: qsTr("Hello World")
+    title: qsTr("SpaceCar")
 
     // For testing purposes, text-displays values
     Row {
@@ -31,6 +31,9 @@ Window {
         turnedOn: CarControl.turnedOn
       }
       SteeringWheel{
+
+      }
+      PitchStick {
 
       }
     }

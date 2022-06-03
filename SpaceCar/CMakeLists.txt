@@ -28,6 +28,7 @@ qt_add_qml_module(appSpaceCar
       main.qml
       PowerButton.qml
       SteeringWheel.qml
+      PitchStick.qml
     RESOURCES
       power_button_off.png
       power_button_on.png
