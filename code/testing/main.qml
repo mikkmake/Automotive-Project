@@ -6,31 +6,31 @@ Window {
     height: 480
     visible: true
     title: qsTr("Hello World")
-    Rectangle {
-        id: imgwrap
-        anchors.centerIn:parent
-        width: img.width
-        height: img.height
-        Image {
-            id: img
+    // Rectangle {
+        // id: imgwrapper
+        // // anchors.centerIn:parent
+        // anchors.fill:parent
+        // color: "black"
+        // Image {
+            // id: img
+            // fillMode: Image.Tile
             // anchors.fill: parent
-            source: "MusicPlayer_Cover.png"
-            layer.enabled: true
-            layer.wrapMode: ShaderEffectSource.Repeat
-            layer.effect: ShaderEffect {
-                NumberAnimation on displacement {
-
-                }
-            }
-        }
-        // Rectangle {
-        // anchors.centerIn: parent
-        // width: 200; height: width
-        // Text {
-            // anchors.centerIn: parent
-            // text: "Helou vöörldd"
-            // color: "black"
+            // source: "stars.jpg"
         // }
-        // color: "blue"
+
+    // }
+    // Viewport Test
+    Rectangle {
+        id: viewport
+        width: 100; height: width
+        anchors.centerIn: parent
+        Image {
+            id: viewimage
+            // How to copy image into 2x2 tiled?
+            // idk just do in gimp?
+            // Or define image dimensions to source * 2 and use
+            // fillMode: Image.Tile
+
+        }
     }
 }

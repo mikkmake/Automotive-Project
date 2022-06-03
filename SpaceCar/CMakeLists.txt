@@ -1,28 +1,28 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(testing VERSION 0.1 LANGUAGES CXX)
+project(SpaceCar VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_AUTOMOC ON)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
 
-qt_add_executable(apptesting
+qt_add_executable(appSpaceCar
     main.cpp
 )
 
-qt_add_qml_module(apptesting
-    URI testing
+qt_add_qml_module(appSpaceCar
+    URI SpaceCar
     VERSION 1.0
-    QML_FILES main.qml 
+    QML_FILES
+      main.qml
+      PowerButton.qml
     RESOURCES
-      ../Images/MusicPlayer_Cover.png
-      MusicPlayer_Cover.png
-      star_space.png
-      stars.jpg
+      power_button_off.png
+      power_button_on.png
 )
 
-set_target_properties(apptesting PROPERTIES
+set_target_properties(appSpaceCar PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
     MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
     MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
@@ -30,7 +30,7 @@ set_target_properties(apptesting PROPERTIES
     WIN32_EXECUTABLE TRUE
 )
 
-target_compile_definitions(apptesting
+target_compile_definitions(appSpaceCar
     PRIVATE $<$<OR:$<CONFIG:Debug>,$<CONFIG:RelWithDebInfo>>:QT_QML_DEBUG>)
-target_link_libraries(apptesting
+target_link_libraries(appSpaceCar
     PRIVATE Qt6::Quick)
