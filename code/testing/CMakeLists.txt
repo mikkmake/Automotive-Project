@@ -14,7 +14,9 @@ qt_add_executable(apptesting
 qt_add_qml_module(apptesting
     URI testing
     VERSION 1.0
-    QML_FILES main.qml 
+    QML_FILES
+      main.qml
+      LoopingImage.qml
     RESOURCES
       ../Images/MusicPlayer_Cover.png
       MusicPlayer_Cover.png
