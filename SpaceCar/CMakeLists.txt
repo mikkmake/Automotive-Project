@@ -26,6 +26,7 @@ qt_add_qml_module(appSpaceCar
     VERSION 1.0
     QML_FILES
       main.qml
+      LoopingImage.qml
       PowerButton.qml
       SteeringWheel.qml
       PitchStick.qml
@@ -33,6 +34,8 @@ qt_add_qml_module(appSpaceCar
       power_button_off.png
       power_button_on.png
       steering_wheel.png
+      Stars_quadrants.png
+      Interior-background_alpha_smaller.png
 )
 
 set_target_properties(appSpaceCar PROPERTIES
