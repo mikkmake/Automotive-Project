@@ -4,6 +4,7 @@
 
 import QtQuick
 import SpaceCar
+import Qt.labs.animation
 
 // Container Item
 Item {
@@ -30,6 +31,11 @@ Item {
       id: rightbutton
       source: "images/SteeringWheel/Steeringwheel-rightbutton.png"
       anchors.centerIn: parent
+    }
+    // Disallow too much rotation
+    BoundaryRule on rotation {
+      minimum: -50
+      maximum: 50
     }
   }
 }

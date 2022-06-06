@@ -37,6 +37,7 @@ qt_add_qml_module(appSpaceCar
       images/SteeringWheel/Steeringwheel-middle.png
       images/SteeringWheel/Steeringwheel-leftbutton.png
       images/SteeringWheel/Steeringwheel-rightbutton.png
+      images/GearShift.png
 )
 
 set_target_properties(appSpaceCar PROPERTIES
