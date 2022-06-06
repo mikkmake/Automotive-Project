@@ -1,31 +1,35 @@
+/* Steering Wheel component
+
+*/
+
 import QtQuick
 import SpaceCar
 
+// Container Item
 Item {
   id: root
-  height: 200; width: height;
+  width: base.width; height: base.height
+  // What we need access to from outside
+  property alias rotation: base.rotation
   Image {
-    id: img
-    anchors.fill: parent
-    source: "steering_wheel.png"
-    // Pressing left should decrease yaw
-    MouseArea {
-      height: parent.height
-      width: parent.width / 2
-      onPressed: {
-        console.log("Pressed left steering wheel")
-        CarControl.decreaseYaw()
-      }
+    id: base
+    rotation: 10
+    source: "images/SteeringWheel/Steeringwheel-base.png"
+    // Images already aligned -> center everything in parent
+    Image {
+      id: middle
+      source: "images/SteeringWheel/Steeringwheel-middle.png"
+      anchors.centerIn: parent
     }
-    // Pressing right should increase yaw
-    MouseArea {
-      height: parent.height
-      width: parent.width / 2
-      x: parent.width / 2
-      onPressed: {
-        console.log("Pressed right steering wheel")
-        CarControl.increaseYaw()
-      }
+    Image {
+      id: leftButton
+      source: "images/SteeringWheel/Steeringwheel-leftbutton.png"
+      anchors.centerIn: parent
+    }
+    Image {
+      id: rightbutton
+      source: "images/SteeringWheel/Steeringwheel-rightbutton.png"
+      anchors.centerIn: parent
     }
   }
 }

@@ -1,6 +1,10 @@
 # Automotive-Project
 Projectwork for Automotive Code Pro Now 2022
 
+## 03.06
+
+Have graphics ready to go and an initial layout. Star graphics are public domain, car-interior graphics <a href="http://www.freepik.com">Designed by macrovector / Freepik</a>
+
 ## 01.06.
 Test in class
 

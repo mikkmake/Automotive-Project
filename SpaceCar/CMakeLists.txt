@@ -31,11 +31,12 @@ qt_add_qml_module(appSpaceCar
       SteeringWheel.qml
       PitchStick.qml
     RESOURCES
-      power_button_off.png
-      power_button_on.png
-      steering_wheel.png
-      Stars_quadrants.png
-      Interior-background_alpha_smaller.png
+      images/Stars_quadrants.png
+      images/Interior-background_alpha_smaller.png
+      images/SteeringWheel/Steeringwheel-base.png
+      images/SteeringWheel/Steeringwheel-middle.png
+      images/SteeringWheel/Steeringwheel-leftbutton.png
+      images/SteeringWheel/Steeringwheel-rightbutton.png
 )
 
 set_target_properties(appSpaceCar PROPERTIES
