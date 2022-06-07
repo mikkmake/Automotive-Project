@@ -22,18 +22,48 @@ Rectangle {
   Image {
     id: viewImage
     source: imageSource
-    // Define the looping behavior
-    onXChanged: () => {
-                  if (x > 0)
-                  x -= width / 2
-                  else if (x < -width / 2)
-                  x += width / 2
-                }
-    onYChanged: () => {
-                  if (y > 0)
-                  y -= height / 2
-                  else if (y < -height / 2)
-                  y += height
-                }
+    onXChanged: {
+      if (x < -1395 || x >=0) {
+        xBehavior.enabled = false;
+        return;
+      }
+      xBehavior.enabled = true;
+    }
+
+    onYChanged: {
+      if (y < -1395 || y >= 0) {
+        yBehavior.enabled = false;
+        return;
+      }
+      yBehavior.enabled = true;
+    }
+    Behavior on x {
+      id: xBehavior
+      enabled: false
+      SequentialAnimation {
+        ScriptAction {
+          script: {
+            console.log("in X animation");
+          }
+        }
+        NumberAnimation {
+          duration: 100
+        }
+      }
+    }
+    Behavior on y {
+      id: yBehavior
+      enabled: false
+      SequentialAnimation {
+        ScriptAction {
+        script: {
+            console.log("in Y animation");
+          }
+        }
+        NumberAnimation {
+          duration: 100
+        }
+      }
+    }
   }
 }

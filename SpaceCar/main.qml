@@ -22,12 +22,12 @@ Window {
        target: CarControl
        onYawChanged: {
         console.log("catched yawChanged signal with " + CarControl.yaw);
-        loopingImage.imgX = Math.round(-loopingImage.imgWidth / 360 * CarControl.yaw);
+        loopingImage.imgX = Math.round(-loopingImage.imgWidth / 2 / 360.0 * CarControl.yaw);
         console.log("X set to " + loopingImage.imgX);
        }
        onPitchChanged: {
         console.log("catched pitchChanged signal with " + CarControl.pitch);
-        loopingImage.imgY = Math.round(loopingImage.imgHeight / 360 * CarControl.pitch);
+        loopingImage.imgY = Math.round(-loopingImage.imgHeight / 2 / 360 * CarControl.pitch);
         console.log("Y set to " + loopingImage.imgY);
        }
        }
