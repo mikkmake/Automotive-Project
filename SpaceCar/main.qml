@@ -39,6 +39,21 @@ Window {
         id: steeringWheel
         x: 150
         y: (window.height / 2) - (height / 2) - 20
+        // Define control keys
+        Shortcut {
+          sequence: "A"
+          onActivated: {
+            steeringWheel.rotation -= 5;
+            CarControl.changeYaw(1);
+          }
+        }
+        Shortcut {
+          sequence: "D"
+          onActivated: {
+            steeringWheel.rotation += 5;
+            CarControl.changeYaw(-1);
+          }
+        }
       }
       PitchStick {
         id: stick
@@ -52,30 +67,21 @@ Window {
           minimum: interior.height - stick.height
           maximum: interior.height - stick.height + 40
         }
-      }
-
-      focus: true // To catch keypresses, an element must have active focus
-      // This also means that all our rotation/movement handling must be done inside this
-      Keys.onPressed:
-          (event) => {
-            switch (event.key) {
-              case Qt.Key_A:
-                steeringWheel.rotation -= 5;
-                CarControl.changeYaw(1);
-                break;
-              case Qt.Key_D:
-                steeringWheel.rotation += 5;
-                CarControl.changeYaw(-1);
-                break;
-              case Qt.Key_S:
-                stick.y += 5;
-                CarControl.changePitch(1);
-                break;
-              case Qt.Key_W:
-                stick.y -= 5;
-                CarControl.changePitch(-1);
-                break;
-            }
+        // Define control keys
+        Shortcut {
+          sequence: "W"
+          onActivated: {
+            stick.y -= 4;
+            CarControl.changePitch(-1);
           }
+        }
+        Shortcut {
+          sequence: "S"
+          onActivated: {
+            stick.y += 4;
+            CarControl.changePitch(1);
+          }
+        }
+      }
     }
-}
+  }

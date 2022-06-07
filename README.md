@@ -1,6 +1,10 @@
 # Automotive-Project
 Projectwork for Automotive Code Pro Now 2022
 
+Latest screenshot from ./documentation/Images/
+
+<img src="https://raw.githubusercontent.com/mikkmake/Automotive-Project/9abca7a3624d60912a7416ff7bf3df2e3d009d6b/documentation/Images/Screenshot-0306.png?token=GHSAT0AAAAAABURFQIXELGNARFFA3RPIKWEYU7KR3Q"></img>
+
 ## 03.06
 
 Have graphics ready to go and an initial layout. Star graphics are public domain, car-interior graphics <a href="http://www.freepik.com">Designed by macrovector / Freepik</a>
