@@ -7,7 +7,7 @@ CarControl::CarControl(QObject *parent)
   : QObject{parent}
 {
   // Control starts off as shut down
-  m_turnedOn = false;
+  m_turnedOn = true;
   // Orientation and velocity starts at zeros
   m_yaw = 0.0;
   m_pitch = 0.0;
@@ -34,61 +34,37 @@ double CarControl::yaw() const
   return m_yaw;
 }
 
-void CarControl::decreaseYaw()
+void CarControl::changeYaw(double change)
 {
   qDebug() << Q_FUNC_INFO;
   if (!m_turnedOn) return;
-  m_yaw = decreaseDegree(m_yaw);
-  emit yawChanged();
+  m_yaw = changeDegree(m_yaw, change);
+  qDebug() << "Emitting yawChanged signal";
+  emit yawChanged(m_yaw);
 }
-
-void CarControl::increaseYaw()
-{
-  qDebug() << Q_FUNC_INFO;
-  if (!m_turnedOn) return;
-  m_yaw = increaseDegree(m_yaw);
-  emit yawChanged();
-}
-
 
 double CarControl::pitch() const
 {
   return m_pitch;
 }
 
-void CarControl::decreasePitch()
+void CarControl::changePitch(double change)
 {
   qDebug() << Q_FUNC_INFO;
   if (!m_turnedOn) return;
-  m_pitch = decreaseDegree(m_pitch);
-  emit pitchChanged();
+  m_pitch = changeDegree(m_pitch, change);
+  emit pitchChanged(m_pitch);
 }
 
-void CarControl::increasePitch()
+double CarControl::changeDegree(double degree, double change)
 {
-  qDebug() << Q_FUNC_INFO;
-  if (!m_turnedOn) return;
-  m_pitch = increaseDegree(m_pitch);
-  emit pitchChanged();
-}
-
-double CarControl::increaseDegree(double degree)
-{
-  // Temporary hardcoding
-  degree += 10.0;
   // Hardcoding 360 degrees should be fine. It's not about to change
-  if (degree >= 360.0)
+  degree += change;
+  // Using whiles here to not break behavior if change is something redonculous
+  while (degree >= 360.0)
     degree -= 360.0;
-
-  return degree;
-}
-
-// Reverse logic to the above method
-double CarControl::decreaseDegree(double degree)
-{
-  degree -= 10;
-  if (degree < 0.0)
-    degree += 360.0;
+  while (degree < 0)
+    degree += 360;
   return degree;
 }
 

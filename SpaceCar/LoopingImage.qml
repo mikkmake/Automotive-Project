@@ -13,6 +13,8 @@ Rectangle {
   // Alias image coordinates for use outside component
   property alias imgX: viewImage.x
   property alias imgY: viewImage.y
+  property alias imgWidth: viewImage.width
+  property alias imgHeight: viewImage.height
   // These placeholders are the maximum dimensions to get expected behavior
   width: viewImage.width / 2
   height: viewImage.height / 2
