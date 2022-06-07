@@ -10,7 +10,7 @@ class CarControl : public QObject
   Q_PROPERTY(bool turnedOn READ turnedOn WRITE setTurnedOn NOTIFY turnedOnChanged)
   Q_PROPERTY(double yaw READ yaw WRITE changeYaw NOTIFY yawChanged)
   Q_PROPERTY(double pitch READ pitch WRITE changePitch NOTIFY pitchChanged)
-  Q_PROPERTY(double velocity READ velocity NOTIFY velocityChanged)
+  Q_PROPERTY(double acceleration READ acceleration NOTIFY accelerationChanged)
   QML_NAMED_ELEMENT(CarControl)
   QML_SINGLETON
 
@@ -26,8 +26,11 @@ public:
   double pitch() const;
   Q_INVOKABLE void changePitch(double change);
 
-  double velocity() const;
-  Q_INVOKABLE void increaseVelocity();
+  double acceleration() const;
+  Q_INVOKABLE void changeAcceleration(double change);
+
+public slots:
+
 
 signals:
   void turnedOnChanged();
@@ -36,7 +39,7 @@ signals:
 
   void pitchChanged(double m_pitch);
 
-  void velocityChanged();
+  void accelerationChanged();
 
 private:
   bool m_turnedOn;
@@ -45,7 +48,7 @@ private:
 
   // Avoid copy paste logic as roll, yaw, and pitch all follow the same rules
   double changeDegree(double degree, double change);
-  double m_velocity;
+  double m_acceleration;
 };
 
 #endif // CARCONTROL_H

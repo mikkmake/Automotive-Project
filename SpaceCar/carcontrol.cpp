@@ -8,10 +8,10 @@ CarControl::CarControl(QObject *parent)
 {
   // Control starts off as shut down
   m_turnedOn = true;
-  // Orientation and velocity starts at zeros
+  // Orientation and acceleration starts at zeros
   m_yaw = 0.0;
   m_pitch = 0.0;
-  m_velocity = 0.0;
+  m_acceleration = 0.0;
 }
 
 bool CarControl::turnedOn() const
@@ -68,13 +68,22 @@ double CarControl::changeDegree(double degree, double change)
   return degree;
 }
 
-double CarControl::velocity() const
+double CarControl::acceleration() const
 {
-  return m_velocity;
+  return m_acceleration;
 }
 
-void CarControl::increaseVelocity()
+void CarControl::changeAcceleration(double change)
 {
-  // Hard-code for now
-  m_velocity += 10;
+  if (m_acceleration + change >= 5.0) {
+    qDebug() << "Acceleration limit reached";
+    return;
+  } else if (m_acceleration + change < 0) {
+    qDebug() << "Acceleration can't go below zero";
+    m_acceleration = 0.0;
+    return;
+  }
+  qDebug() << "changing m_acceleration " << m_acceleration << " by " << change;
+  m_acceleration += change;
+  emit accelerationChanged();
 }

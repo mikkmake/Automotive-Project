@@ -17,6 +17,9 @@ Item {
       Text {
         text: "PITCH: " + CarControl.pitch
       }
+      Text {
+        text: "ACCELERATION: " + CarControl.acceleration.toFixed(2)
+      }
     }
   }
 }

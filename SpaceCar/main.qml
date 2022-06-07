@@ -39,9 +39,10 @@ Window {
         id: steeringWheel
         x: 150
         y: (window.height / 2) - (height / 2) - 20
-        // Define control keys
+        z: 1
         Shortcut {
           sequence: "A"
+          autoRepeat: false
           onActivated: {
             steeringWheel.rotation -= 5;
             CarControl.changeYaw(-1);
@@ -49,6 +50,7 @@ Window {
         }
         Shortcut {
           sequence: "D"
+          autoRepeat: false
           onActivated: {
             steeringWheel.rotation += 5;
             CarControl.changeYaw(1);
@@ -70,6 +72,7 @@ Window {
         // Define control keys
         Shortcut {
           sequence: "W"
+          autoRepeat: false
           onActivated: {
             stick.y -= 4;
             CarControl.changePitch(-1);
@@ -77,6 +80,7 @@ Window {
         }
         Shortcut {
           sequence: "S"
+          autoRepeat: false
           onActivated: {
             stick.y += 4;
             CarControl.changePitch(1);
@@ -90,6 +94,69 @@ Window {
           horizontalCenterOffset: 50
         }
       }
+      GasPedal {
+        id: gasPedal
+        x: 480
+        anchors {
+          verticalCenter: parent.verticalCenter
+          verticalCenterOffset: 155
+        }
+        Timer {
+          id: accelerationTimer
+          interval: 100
+          repeat: true
+          onTriggered: {
+            CarControl.changeAcceleration(0.1);
+          }
+        }
+      }
+      BrakePedal {
+        id: brakePedal
+        x: 350
+        anchors {
+          verticalCenter: parent.verticalCenter
+          verticalCenterOffset: 155
+        }
+        Timer {
+          id: deccelerationTimer
+          interval: 100
+          repeat: true
+          onTriggered: {
+            CarControl.changeAcceleration(-0.1);
+          }
+        }
+      }
 
+      // Only the element with focus can take input -> everything handled here
+      focus: true
+      Keys.onPressed:
+        (event) => {
+          // Disable autorepeat on all
+          if (event.isAutoRepeat)
+            return;
+          if (event.key === Qt.Key_Space) {
+            console.log("Spacebar detected");
+            accelerationTimer.running = true;
+            // Begin acceleration increase
+          }
+          if (event.key === Qt.Key_Shift) {
+            console.log("Shift detected");
+            deccelerationTimer.running = true;
+          }
+        }
+      Keys.onReleased:
+        (event) => {
+          if (event.isAutoRepeat)
+            return;
+          if (event.key === Qt.Key_Space) {
+            console.log("Spacebar released");
+            // Stop acceleration increase
+            accelerationTimer.running = false;
+          }
+          if (event.key === Qt.Key_Shift) {
+            console.log("Shift released");
+            deccelerationTimer.running = false;
+          }
+        }
     }
   }
