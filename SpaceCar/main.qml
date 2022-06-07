@@ -40,20 +40,22 @@ Window {
         x: 150
         y: (window.height / 2) - (height / 2) - 20
         z: 1
-        Shortcut {
-          sequence: "A"
-          autoRepeat: false
-          onActivated: {
-            steeringWheel.rotation -= 5;
-            CarControl.changeYaw(-1);
-          }
-        }
-        Shortcut {
-          sequence: "D"
-          autoRepeat: false
-          onActivated: {
+        Timer {
+          id: yawIncreaseTimer
+          repeat: true
+          interval: 100
+          onTriggered: {
             steeringWheel.rotation += 5;
             CarControl.changeYaw(1);
+          }
+        }
+        Timer {
+          id: yawDecreaseTimer
+          repeat: true
+          interval: 100
+          onTriggered: {
+            steeringWheel.rotation -= 5;
+            CarControl.changeYaw(-1);
           }
         }
       }
@@ -69,20 +71,22 @@ Window {
           minimum: interior.height - stick.height
           maximum: interior.height - stick.height + 40
         }
-        // Define control keys
-        Shortcut {
-          sequence: "W"
-          autoRepeat: false
-          onActivated: {
-            stick.y -= 4;
+        // Control timers
+        Timer {
+          id: pitchDecreaseTimer
+          interval: 100
+          repeat: true
+          onTriggered: {
+            stick.y += 5;
             CarControl.changePitch(-1);
           }
         }
-        Shortcut {
-          sequence: "S"
-          autoRepeat: false
-          onActivated: {
-            stick.y += 4;
+        Timer {
+          id: pitchIncreaseTimer
+          interval: 100
+          repeat: true
+          onTriggered: {
+            stick.y -= 5;
             CarControl.changePitch(1);
           }
         }
@@ -143,6 +147,22 @@ Window {
             console.log("Shift detected");
             deccelerationTimer.running = true;
           }
+          if (event.key === Qt.Key_A) {
+            console.log("Key_A detected");
+            yawDecreaseTimer.running = true;
+          }
+          if (event.key === Qt.Key_D) {
+            console.log("Key_D detected");
+            yawIncreaseTimer.running = true;
+          }
+          if (event.key === Qt.Key_S) {
+            console.log("Key_S detected");
+            pitchDecreaseTimer.running = true;
+          }
+          if (event.key === Qt.Key_W) {
+            console.log("Key_W detected");
+            pitchIncreaseTimer.running = true;
+          }
         }
       Keys.onReleased:
         (event) => {
@@ -156,6 +176,22 @@ Window {
           if (event.key === Qt.Key_Shift) {
             console.log("Shift released");
             deccelerationTimer.running = false;
+          }
+          if (event.key === Qt.Key_A) {
+            console.log("Key_A released");
+            yawDecreaseTimer.running = false;
+          }
+          if (event.key === Qt.Key_D) {
+            console.log("Key_D released");
+            yawIncreaseTimer.running = false;
+          }
+          if (event.key === Qt.Key_S) {
+            console.log("Key_S released");
+            pitchDecreaseTimer.running = false;
+          }
+          if (event.key === Qt.Key_W) {
+            console.log("Key_W released");
+            pitchIncreaseTimer.running = false;
           }
         }
     }
