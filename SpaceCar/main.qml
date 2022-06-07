@@ -12,6 +12,8 @@ Window {
 
     LoopingImage {
       id: loopingImage
+      // viewport height
+      height: window.height
       imageSource: "images/Stars_quadrants.png"
       // Connect CarControl orientation to background movement in a sensible way
       // If one quadrant corresponds to 360-degrees, a degree should correspond to width / 360
@@ -19,12 +21,12 @@ Window {
       Connections {
        target: CarControl
        onYawChanged: {
-        console.log("catched yawChanged signal");
+        console.log("catched yawChanged signal with " + CarControl.yaw);
         loopingImage.imgX = Math.round(loopingImage.imgWidth / 360 * CarControl.yaw);
         console.log("X set to " + loopingImage.imgX);
        }
        onPitchChanged: {
-        console.log("catched pitchChanged signal");
+        console.log("catched pitchChanged signal with " + CarControl.pitch);
         loopingImage.imgY = Math.round(loopingImage.imgHeight / 360 * CarControl.pitch);
         console.log("Y set to " + loopingImage.imgY);
        }
@@ -57,21 +59,21 @@ Window {
       Keys.onPressed:
           (event) => {
             switch (event.key) {
-              case Qt.Key_D:
-                steeringWheel.rotation += 5;
-                CarControl.changeYaw(10);
-                break;
               case Qt.Key_A:
                 steeringWheel.rotation -= 5;
-                CarControl.changeYaw(-10);
+                CarControl.changeYaw(1);
+                break;
+              case Qt.Key_D:
+                steeringWheel.rotation += 5;
+                CarControl.changeYaw(-1);
                 break;
               case Qt.Key_S:
                 stick.y += 5;
-                CarControl.changePitch(10);
+                CarControl.changePitch(1);
                 break;
               case Qt.Key_W:
                 stick.y -= 5;
-                CarControl.changePitch(-10);
+                CarControl.changePitch(-1);
                 break;
             }
           }
