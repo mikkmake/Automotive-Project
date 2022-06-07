@@ -22,7 +22,7 @@ Window {
        target: CarControl
        onYawChanged: {
         console.log("catched yawChanged signal with " + CarControl.yaw);
-        loopingImage.imgX = Math.round(loopingImage.imgWidth / 360 * CarControl.yaw);
+        loopingImage.imgX = Math.round(-loopingImage.imgWidth / 360 * CarControl.yaw);
         console.log("X set to " + loopingImage.imgX);
        }
        onPitchChanged: {
@@ -44,14 +44,14 @@ Window {
           sequence: "A"
           onActivated: {
             steeringWheel.rotation -= 5;
-            CarControl.changeYaw(1);
+            CarControl.changeYaw(-1);
           }
         }
         Shortcut {
           sequence: "D"
           onActivated: {
             steeringWheel.rotation += 5;
-            CarControl.changeYaw(-1);
+            CarControl.changeYaw(1);
           }
         }
       }
@@ -83,5 +83,13 @@ Window {
           }
         }
       }
+      InfoScreen {
+        y: 500
+        anchors {
+          horizontalCenter: parent.horizontalCenter
+          horizontalCenterOffset: 50
+        }
+      }
+
     }
   }

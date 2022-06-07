@@ -30,6 +30,7 @@ qt_add_qml_module(appSpaceCar
       PowerButton.qml
       SteeringWheel.qml
       PitchStick.qml
+      InfoScreen.qml
     RESOURCES
       images/Stars_quadrants.png
       images/Interior-background_alpha_smaller.png
@@ -38,6 +39,7 @@ qt_add_qml_module(appSpaceCar
       images/SteeringWheel/Steeringwheel-leftbutton.png
       images/SteeringWheel/Steeringwheel-rightbutton.png
       images/GearShift.png
+      images/Infotainment/Infoscreen.png
 )
 
 set_target_properties(appSpaceCar PROPERTIES
