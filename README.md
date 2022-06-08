@@ -3,9 +3,17 @@ Projectwork for Automotive Code Pro Now 2022
 
 Latest screenshot from ./documentation/Images/
 
-<img src="https://raw.githubusercontent.com/mikkmake/Automotive-Project/9abca7a3624d60912a7416ff7bf3df2e3d009d6b/documentation/Images/Screenshot-0306.png?token=GHSAT0AAAAAABURFQIXELGNARFFA3RPIKWEYU7KR3Q"></img>
+<img src="documentation/Images/Screenshot0806.png"></img>
 
-## 03.06
+## 07. & 08.06.
+
+Battled with LoopingImage to make it work first alone, then in the project use-case. I dread it will break at some point or not bend to the requirements of other features.
+
+## 06.06.
+
+Updated interior design.
+
+## 03.06.
 
 Have graphics ready to go and an initial layout. Star graphics are public domain, car-interior graphics <a href="http://www.freepik.com">Designed by macrovector / Freepik</a>
 
