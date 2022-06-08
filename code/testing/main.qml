@@ -3,28 +3,22 @@ import QtQuick
 // Testing LoopingImage
 Window {
   id: window
-  width: 640
-  height: 480
+  width: 1400
+  height: 980
   visible: true
   title: qsTr("Testing")
   LoopingImage {
     id: loopingImage
-    width: 100
-    height: 100
-    imageSource: "stars.jpg"
+    imageSource: "Stars_quadrants.png"
     anchors.centerIn: parent
-    MouseArea {
-      anchors.fill: parent
-      acceptedButtons: Qt.LeftButton | Qt.RightButton
-      Timer {
-        running: true
-        repeat: true
-        interval: 50
-        onTriggered: () => {
-                       loopingImage.imgX++
-                       loopingImage.imgY++
-                     }
-      }
+    Timer {
+      running: true
+      repeat: true
+      interval: 20
+      onTriggered: () => {
+                     loopingImage.changeTargetX(-5);
+                     // loopingImage.imgY += 5
+                   }
     }
   }
 }

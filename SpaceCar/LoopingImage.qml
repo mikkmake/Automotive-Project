@@ -22,14 +22,24 @@ Rectangle {
   Image {
     id: viewImage
     source: imageSource
+    property real oldX: 0
     onXChanged: {
-      if (x < -1395 || x >=0) {
-        xBehavior.enabled = false;
+      // if (x < -1395 || x >=0) {
+        // // xBehavior.enabled = false;
+        // return;
+      // }
+      // xBehavior.enabled = true;
+      console.log("täs: " + xAnimation.running + " ja X: " + x)
+      if (x < -1399 || x > -1) {
+        xAnimation.running = false;
+        oldX = x
         return;
       }
-      xBehavior.enabled = true;
+      xAnimation.from = oldX
+      xAnimation.to = x
+      oldX = x
+      xAnimation.running = true;
     }
-
     onYChanged: {
       if (y < -1395 || y >= 0) {
         yBehavior.enabled = false;
@@ -37,20 +47,29 @@ Rectangle {
       }
       yBehavior.enabled = true;
     }
-    Behavior on x {
-      id: xBehavior
-      enabled: false
-      SequentialAnimation {
-        ScriptAction {
-          script: {
-            console.log("in X animation");
-          }
-        }
-        NumberAnimation {
-          duration: 100
-        }
-      }
+    // Behavior on x {
+      // id: xBehavior
+      // enabled: false
+      // SequentialAnimation {
+        // ScriptAction {
+          // script: {
+            // console.log("in X animation");
+          // }
+        // }
+        // NumberAnimation {
+          // duration: 100
+        // }
+      // }
+    // }
+    PropertyAnimation {
+      id: xAnimation
+      target: viewImage
+      property: "x"
+      from: viewImage.oldX
+      to: viewImage.x
+      duration: 100
     }
+
     Behavior on y {
       id: yBehavior
       enabled: false

@@ -10,4 +10,12 @@ Item {
     id: stick
     source: "images/GearShift.png"
   }
+  Behavior on y {
+      SequentialAnimation {
+          ScriptAction { script: console.log("shiftanim"); }
+          NumberAnimation {
+              duration: 200
+          }
+      }
+  }
 }

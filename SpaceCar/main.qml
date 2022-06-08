@@ -21,7 +21,7 @@ Window {
       Connections {
        target: CarControl
        onYawChanged: {
-        console.log("catched yawChanged signal with " + CarControl.yaw);
+        console.log("setting X to: " + Math.round(-loopingImage.imgWidth / 2 / 360.0 * CarControl.yaw));
         loopingImage.imgX = Math.round(-loopingImage.imgWidth / 2 / 360.0 * CarControl.yaw);
         console.log("X set to " + loopingImage.imgX);
        }
@@ -46,7 +46,7 @@ Window {
           interval: 100
           onTriggered: {
             steeringWheel.rotation += 5;
-            CarControl.changeYaw(1);
+            CarControl.changeYaw(5);
           }
         }
         Timer {
@@ -55,7 +55,7 @@ Window {
           interval: 100
           onTriggered: {
             steeringWheel.rotation -= 5;
-            CarControl.changeYaw(-1);
+            CarControl.changeYaw(-5);
           }
         }
       }
@@ -67,10 +67,10 @@ Window {
           horizontalCenterOffset: 50
         }
         // Limit movement
-        BoundaryRule on y {
-          minimum: interior.height - stick.height
-          maximum: interior.height - stick.height + 40
-        }
+        // BoundaryRule on y {
+          // minimum: interior.height - stick.height
+          // maximum: interior.height - stick.height + 40
+        // }
         // Control timers
         Timer {
           id: pitchDecreaseTimer
@@ -78,7 +78,7 @@ Window {
           repeat: true
           onTriggered: {
             stick.y += 5;
-            CarControl.changePitch(-1);
+            CarControl.changePitch(-5);
           }
         }
         Timer {
@@ -87,7 +87,7 @@ Window {
           repeat: true
           onTriggered: {
             stick.y -= 5;
-            CarControl.changePitch(1);
+            CarControl.changePitch(5);
           }
         }
       }
@@ -102,8 +102,8 @@ Window {
         id: gasPedal
         x: 480
         anchors {
-          verticalCenter: parent.verticalCenter
-          verticalCenterOffset: 155
+          top: parent.verticalCenter
+          topMargin: 155
         }
         Timer {
           id: accelerationTimer

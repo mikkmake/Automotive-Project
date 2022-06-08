@@ -22,6 +22,7 @@ qt_add_qml_module(apptesting
       MusicPlayer_Cover.png
       star_space.png
       stars.jpg
+      Stars_quadrants.png
 )
 
 set_target_properties(apptesting PROPERTIES

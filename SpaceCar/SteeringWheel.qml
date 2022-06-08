@@ -14,8 +14,9 @@ Item {
   property alias rotation: base.rotation
   Image {
     id: base
-    rotation: 10
+    rotation: 0
     source: "images/SteeringWheel/Steeringwheel-base.png"
+    onRotationChanged: { console.log("rot: " + rotation); }
     // Images already aligned -> center everything in parent
     Image {
       id: middle
@@ -37,5 +38,13 @@ Item {
       minimum: -50
       maximum: 50
     }
+  }
+  Behavior on rotation {
+      SequentialAnimation {
+          ScriptAction { script: console.log("rotanim"); }
+          NumberAnimation {
+              duration: 100
+          }
+      }
   }
 }
