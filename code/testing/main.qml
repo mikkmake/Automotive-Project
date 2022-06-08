@@ -15,10 +15,11 @@ Window {
       running: true
       repeat: true
       interval: 20
-      onTriggered: () => {
-                     loopingImage.changeTargetX(-5);
-                     // loopingImage.imgY += 5
-                   }
+      onTriggered:
+      {
+        loopingImage.changeTargetX(5);
+        loopingImage.changeTargetY(5);
+      }
     }
   }
 }

@@ -13,7 +13,8 @@ Rectangle {
   // Alias image coordinates for use outside component
   property alias imgX: viewImage.x
   property alias imgY: viewImage.y
-  property int targetX: -1300
+  property int targetX: 0
+  property int targetY: 0
   property alias xRunning: xAnimation.running
   // These placeholders are the maximum dimensions to get expected behavior
   width: viewImage.width / 2
@@ -21,32 +22,37 @@ Rectangle {
   clip: true
   Image {
     id: viewImage
-    x: -1300
     source: imageSource
     // Define the looping behavior
-    onXChanged: () => {
-                  if (x > 0 ) {
-                    console.log("x too big, limiting")
-                    x -= width / 2
-                  }
-                  else if (targetX < -width / 2) {
-                    console.log("x (" + x + ") too small, limiting")
-                    x += width / 2
-                  }
-                }
-    // onYChanged: () => {
-                  // if (y > 0)
-                  // y -= height / 2
-                  // else if (y < -height / 2)
-                  // y += height
-                // }
+    onXChanged: {
+      if (x > 0 ) {
+        console.log("x too big, limiting")
+        x -= width / 2
+      }
+      else if (targetX < -width / 2) {
+        console.log("x (" + x + ") too small, limiting")
+        x += width / 2
+      }
+    }
+    onYChanged: {
+      if (y > 0)
+        y -= height / 2
+      else if (y < -height / 2)
+        y += height
+    }
   }
   PropertyAnimation {
     id: xAnimation
     target: viewImage
     property: "x"
-    // running: xRunning
     to: targetX
+    duration: 10
+  }
+  PropertyAnimation {
+    id: yAnimation
+    target: viewImage
+    property: "y"
+    to: targetY
     duration: 10
   }
   function changeTargetX(change) {
@@ -56,7 +62,7 @@ Rectangle {
     if (targetX > 0 ) {
       xAnimation.running = false;
       console.log("targetX too big, limiting")
-      targetX -= width / 2
+      targetX -= viewImage.width / 2
       viewImage.x = targetX;
     }
     else if (targetX < -viewImage.width / 2) {
@@ -65,6 +71,20 @@ Rectangle {
       targetX += viewImage.width / 2
       viewImage.x = targetX;
       console.log("set X to " + viewImage.x)
+    }
+  }
+  function changeTargetY(change) {
+    targetY += change;
+    yAnimation.running = true;
+    if (targetY > 0) {
+      yAnimation.running= false;
+      targetY -= viewImage.height / 2;
+      viewImage.y = targetY;
+    }
+    else if (targetY < -viewImage.height / 2) {
+      yAnimation.running = false;
+      targetY += viewImage.height / 2;
+      viewImage.y = targetY;
     }
   }
 }
