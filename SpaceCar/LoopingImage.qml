@@ -3,7 +3,8 @@
   How to use:
     -use an image that consists of 4 identical quadrants
     -the maximum viewPort size is one quadrant
-    -control image position within viewport through imgX & imgY
+    -control image position within viewPort by functions moveX(change) & moveY(change)
+    -experiment with animationDuration to get desired smoothness
 */
 import QtQuick
 
@@ -12,8 +13,8 @@ Rectangle {
   required property string imageSource
   required property int animationDuration
   // Alias image coordinates for use outside component
-  property alias imgX: viewImage.x
-  property alias imgY: viewImage.y
+  // property alias imgX: viewImage.x
+  // property alias imgY: viewImage.y
   property alias imgWidth: viewImage.width
   property alias imgHeight: viewImage.height
   // Properties to control image movement
@@ -22,14 +23,14 @@ Rectangle {
   // These placeholders are the maximum dimensions to get expected behavior
   width: viewImage.width / 2
   height: viewImage.height / 2
-  clip: true
+  clip: true // A necessary evil
 
   Image {
     id: viewImage
     source: imageSource
   }
 
-  // Image moved by animations
+  // Animations that move the image
   PropertyAnimation {
     id: xAnimation
     target: viewImage
@@ -45,23 +46,29 @@ Rectangle {
     to: targetY
     duration: animationDuration
   }
-  // Functions by which to move image
 
+  // Functions by which to move image
   function moveX(change) {
     targetX += change;
-    xAnimation.running = true;
+    // Is offset out of bounds?
     if (targetX > 0) {
-      xAnimation.running= false;
+      // Don't animate the huge shift in distance
+      xAnimation.running = false;
       targetX -= viewImage.width / 2;
       viewImage.x = targetX;
-    }
-    else if (targetX < -viewImage.height / 2) {
+      return;
+      // Another out of bounds check
+    } else if (targetX < -viewImage.height / 2) {
       xAnimation.running = false;
       targetX += viewImage.width / 2;
       viewImage.x = targetX;
+      return;
     }
+    // Out target location is within bounds -> animate change
+    xAnimation.running = true;
   }
 
+  // Same logic for y as above for x
   function moveY(change) {
     targetY += change;
     yAnimation.running = true;

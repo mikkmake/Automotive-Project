@@ -9,44 +9,43 @@ Window {
     height: 980
     visible: true
     title: qsTr("SpaceCar")
+    // This controls both the tickrate of Yaw & Pitch change, and background animation duration. Change at your own peril
+    property int bgAnimationDuration: 10
 
+    // Moving background (out-of-windshield view)
     LoopingImage {
       id: loopingImage
-      // viewport height
+      width: window.width
       height: window.height
       imageSource: "images/Stars_quadrants.png"
-      animationDuration: 10
+      animationDuration: bgAnimationDuration
       // Connect CarControl orientation to background movement in a sensible way
-      // If one quadrant corresponds to 360-degrees, a degree should correspond to width / 360
-      // and height / 360
       Connections {
-       target: CarControl
-       onYawChanged:
-       (change) => {
-        loopingImage.moveX(Math.round(-loopingImage.imgWidth / 2 / 360.0 * change));
-        console.log("X changed by " + change + " to " + loopingImage.targetX);
-       }
-       onPitchChanged:
-       (change) => {
-        console.log("catched pitchChanged signal with " + change);
-        // loopingImage.imgY = Math.round(-loopingImage.imgHeight / 2 / 360 * CarControl.pitch);
-        loopingImage.moveY(Math.round(-loopingImage.imgHeight / 2 / 360 * change));
-        console.log("Y changed by " + loopingImage.targetY);
-       }
-       }
+        target: CarControl
+        function onYawChanged(change) {
+          loopingImage.moveX(Math.round(-loopingImage.imgWidth / 2 / 360.0 * change));
+        }
+        function onPitchChanged(change) {
+          loopingImage.moveY(Math.round(-loopingImage.imgHeight / 2 / 360 * change));
+        }
+      }
     }
+
+    // Car interior begins
     Image {
       id: interior
       source: "images/Interior-background_alpha_smaller.png"
+
       SteeringWheel {
         id: steeringWheel
         x: 150
         y: (window.height / 2) - (height / 2) - 20
-        z: 1
+        z: 1 // The only element that needs to be above others
+        // Yaw-control timers
         Timer {
           id: yawIncreaseTimer
           repeat: true
-          interval: 10
+          interval: bgAnimationDuration
           onTriggered: {
             steeringWheel.rotation += 1;
             CarControl.changeYaw(1);
@@ -55,13 +54,14 @@ Window {
         Timer {
           id: yawDecreaseTimer
           repeat: true
-          interval: 10
+          interval: bgAnimationDuration
           onTriggered: {
             steeringWheel.rotation -= 1;
             CarControl.changeYaw(-1);
           }
         }
       }
+
       PitchStick {
         id: stick
         y: interior.height - height + 20
@@ -69,15 +69,15 @@ Window {
           horizontalCenter: parent.horizontalCenter
           horizontalCenterOffset: 50
         }
-//        Limit movement
+        // Limit movement
         BoundaryRule on y {
           minimum: interior.height - stick.height
           maximum: interior.height - stick.height + 40
         }
-        // Control timers
+        // Pitch-control timers
         Timer {
           id: pitchDecreaseTimer
-          interval: 10
+          interval: bgAnimationDuration
           repeat: true
           onTriggered: {
             stick.y += 1;
@@ -86,7 +86,7 @@ Window {
         }
         Timer {
           id: pitchIncreaseTimer
-          interval: 10
+          interval: bgAnimationDuration
           repeat: true
           onTriggered: {
             stick.y -= 1;
@@ -94,6 +94,7 @@ Window {
           }
         }
       }
+
       InfoScreen {
         y: 500
         anchors {
@@ -101,6 +102,7 @@ Window {
           horizontalCenterOffset: 50
         }
       }
+
       GasPedal {
         id: gasPedal
         x: 480
@@ -117,6 +119,7 @@ Window {
           }
         }
       }
+
       BrakePedal {
         id: brakePedal
         x: 350
@@ -134,55 +137,35 @@ Window {
         }
       }
 
-      // Only the element with focus can take input -> everything handled here
+      // Only the element with focus can take KB-input -> everything handled here
       focus: true
       Keys.onPressed:
         (event) => {
-          // Disable autorepeat on all
+          // Disable autorepeat on all keys
           if (event.isAutoRepeat)
             return;
-          if (event.key === Qt.Key_Space) {
-            accelerationTimer.running = true;
-          }
-          if (event.key === Qt.Key_Shift) {
-            deccelerationTimer.running = true;
-          }
-          if (event.key === Qt.Key_A) {
-            yawDecreaseTimer.running = true;
-          }
-          if (event.key === Qt.Key_D) {
-            yawIncreaseTimer.running = true;
-          }
-          if (event.key === Qt.Key_S) {
-            pitchDecreaseTimer.running = true;
-          }
-          if (event.key === Qt.Key_W) {
-            pitchIncreaseTimer.running = true;
+          switch (event.key) {
+            case Qt.Key_Space: accelerationTimer.running = true; break;
+            case Qt.Key_Shift: deccelerationTimer.running = true; break;
+            case Qt.Key_A: yawDecreaseTimer.running = true; break;
+            case Qt.Key_D: yawIncreaseTimer.running = true; break;
+            case Qt.Key_S: pitchDecreaseTimer.running = true; break;
+            case Qt.Key_W: pitchIncreaseTimer.running = true; break;
           }
         }
       Keys.onReleased:
-        (event) => {
-          if (event.isAutoRepeat)
+          (event) => {
+            if (event.isAutoRepeat)
             return;
-          if (event.key === Qt.Key_Space) {
-            // Stop acceleration increase
-            accelerationTimer.running = false;
+            switch (event.key) {
+              case Qt.Key_Space: accelerationTimer.running = false; break;
+              case Qt.Key_Shift: deccelerationTimer.running = false; break;
+              case Qt.Key_A: yawDecreaseTimer.running = false; break;
+              case Qt.Key_D: yawIncreaseTimer.running = false; break;
+              case Qt.Key_S: pitchDecreaseTimer.running = false; break;
+              case Qt.Key_W: pitchIncreaseTimer.running = false; break;
+            }
           }
-          if (event.key === Qt.Key_Shift) {
-            deccelerationTimer.running = false;
-          }
-          if (event.key === Qt.Key_A) {
-            yawDecreaseTimer.running = false;
-          }
-          if (event.key === Qt.Key_D) {
-            yawIncreaseTimer.running = false;
-          }
-          if (event.key === Qt.Key_S) {
-            pitchDecreaseTimer.running = false;
-          }
-          if (event.key === Qt.Key_W) {
-            pitchIncreaseTimer.running = false;
-          }
-        }
+
     }
-  }
+}

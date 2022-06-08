@@ -6,7 +6,6 @@ import QtQuick
 import SpaceCar
 import Qt.labs.animation
 
-// Container Item
 Item {
   id: root
   width: base.width; height: base.height
@@ -39,12 +38,4 @@ Item {
       maximum: 50
     }
   }
-  // Behavior on rotation {
-      // SequentialAnimation {
-          // ScriptAction { script: console.log("rotanim"); }
-          // NumberAnimation {
-              // duration: 100
-          // }
-      // }
-  // }
 }
