@@ -10,79 +10,70 @@ import QtQuick
 Rectangle {
   id: viewPort // more instructive name than root?
   required property string imageSource
+  required property int animationDuration
   // Alias image coordinates for use outside component
   property alias imgX: viewImage.x
   property alias imgY: viewImage.y
   property alias imgWidth: viewImage.width
   property alias imgHeight: viewImage.height
+  // Properties to control image movement
+  property int targetX: 0
+  property int targetY: 0
   // These placeholders are the maximum dimensions to get expected behavior
   width: viewImage.width / 2
   height: viewImage.height / 2
   clip: true
+
   Image {
     id: viewImage
     source: imageSource
-    property real oldX: 0
-    onXChanged: {
-      // if (x < -1395 || x >=0) {
-        // // xBehavior.enabled = false;
-        // return;
-      // }
-      // xBehavior.enabled = true;
-      console.log("täs: " + xAnimation.running + " ja X: " + x)
-      if (x < -1399 || x > -1) {
-        xAnimation.running = false;
-        oldX = x
-        return;
-      }
-      xAnimation.from = oldX
-      xAnimation.to = x
-      oldX = x
-      xAnimation.running = true;
-    }
-    onYChanged: {
-      if (y < -1395 || y >= 0) {
-        yBehavior.enabled = false;
-        return;
-      }
-      yBehavior.enabled = true;
-    }
-    // Behavior on x {
-      // id: xBehavior
-      // enabled: false
-      // SequentialAnimation {
-        // ScriptAction {
-          // script: {
-            // console.log("in X animation");
-          // }
-        // }
-        // NumberAnimation {
-          // duration: 100
-        // }
-      // }
-    // }
-    PropertyAnimation {
-      id: xAnimation
-      target: viewImage
-      property: "x"
-      from: viewImage.oldX
-      to: viewImage.x
-      duration: 100
-    }
+  }
 
-    Behavior on y {
-      id: yBehavior
-      enabled: false
-      SequentialAnimation {
-        ScriptAction {
-        script: {
-            console.log("in Y animation");
-          }
-        }
-        NumberAnimation {
-          duration: 100
-        }
-      }
+  // Image moved by animations
+  PropertyAnimation {
+    id: xAnimation
+    target: viewImage
+    property: "x"
+    to: targetX
+    duration: animationDuration
+  }
+
+  PropertyAnimation {
+    id: yAnimation
+    target: viewImage
+    property: "y"
+    to: targetY
+    duration: animationDuration
+  }
+  // Functions by which to move image
+
+  function moveX(change) {
+    targetX += change;
+    xAnimation.running = true;
+    if (targetX > 0) {
+      xAnimation.running= false;
+      targetX -= viewImage.width / 2;
+      viewImage.x = targetX;
+    }
+    else if (targetX < -viewImage.height / 2) {
+      xAnimation.running = false;
+      targetX += viewImage.width / 2;
+      viewImage.x = targetX;
+    }
+  }
+
+  function moveY(change) {
+    targetY += change;
+    yAnimation.running = true;
+    if (targetY > 0) {
+      yAnimation.running= false;
+      targetY -= viewImage.height / 2;
+      viewImage.y = targetY;
+    }
+    else if (targetY < -viewImage.height / 2) {
+      yAnimation.running = false;
+      targetY += viewImage.height / 2;
+      viewImage.y = targetY;
     }
   }
 }

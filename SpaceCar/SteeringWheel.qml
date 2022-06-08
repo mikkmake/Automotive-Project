@@ -39,12 +39,12 @@ Item {
       maximum: 50
     }
   }
-  Behavior on rotation {
-      SequentialAnimation {
-          ScriptAction { script: console.log("rotanim"); }
-          NumberAnimation {
-              duration: 100
-          }
-      }
-  }
+  // Behavior on rotation {
+      // SequentialAnimation {
+          // ScriptAction { script: console.log("rotanim"); }
+          // NumberAnimation {
+              // duration: 100
+          // }
+      // }
+  // }
 }

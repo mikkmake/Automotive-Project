@@ -40,7 +40,7 @@ void CarControl::changeYaw(double change)
   if (!m_turnedOn) return;
   m_yaw = changeDegree(m_yaw, change);
   qDebug() << "Emitting yawChanged signal";
-  emit yawChanged(m_yaw);
+  emit yawChanged(change);
 }
 
 double CarControl::pitch() const
@@ -53,7 +53,7 @@ void CarControl::changePitch(double change)
   qDebug() << Q_FUNC_INFO;
   if (!m_turnedOn) return;
   m_pitch = changeDegree(m_pitch, change);
-  emit pitchChanged(m_pitch);
+  emit pitchChanged(change);
 }
 
 double CarControl::changeDegree(double degree, double change)
