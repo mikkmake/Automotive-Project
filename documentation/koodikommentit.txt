@@ -1,0 +1,21 @@
+Yleistä:
+
+- Näyttäisi siltä että ehdit toteuttamaan CAN-väylää simuloivan QtRO:n myös :)
+- Ylätason Itemiä ei tarvita jos sen alla on vain yksi Rectangle, Image yms. Ylätason propertyt voi myös siirtää 
+varsinaisen sisällön sisään
+
+LoopingImage.qml:
+
+- Default-arvoja ei erikseen tarvite asettaa (targetX: 0, targetY: 0)
+
+PowerButton.qml:
+
+- turnedOn propertyä ei tarvita, sillä CarControl tarjoaa saman tiedon
+
+SteeringWheel.mql:
+
+main.qml:
+
+- loopingImage: anchors.fill ennemmin kuin width/height asetus
+- näppäinohjaus kannattaa siirtää johonkin omaan komponenttiinsa
+- bgAnimationDuration ja muut vakioarvot voisi tulla myös Style/Conf -qml-tiedostosta. Se olisi qml singleton, jota voi käyttää kaikissa QML-komponenteissa
