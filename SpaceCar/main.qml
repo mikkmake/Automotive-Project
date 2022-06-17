@@ -35,33 +35,6 @@ Window {
     Image {
       id: interior
       source: "images/Interior-background_alpha_smaller.png"
-
-      SteeringWheel {
-        id: steeringWheel
-        x: 150
-        y: (window.height / 2) - (height / 2) - 20
-        z: 1 // The only element that needs to be above others
-        // Yaw-control timers
-        Timer {
-          id: yawIncreaseTimer
-          repeat: true
-          interval: bgAnimationDuration
-          onTriggered: {
-            steeringWheel.rotation += 1;
-            CarControl.changeYaw(1);
-          }
-        }
-        Timer {
-          id: yawDecreaseTimer
-          repeat: true
-          interval: bgAnimationDuration
-          onTriggered: {
-            steeringWheel.rotation -= 1;
-            CarControl.changeYaw(-1);
-          }
-        }
-      }
-
       PitchStick {
         id: stick
         y: interior.height - height + 20
@@ -133,6 +106,30 @@ Window {
           repeat: true
           onTriggered: {
             CarControl.changeAcceleration(-0.1);
+          }
+        }
+      }
+      SteeringWheel {
+        id: steeringWheel
+        x: 150
+        y: (window.height / 2) - (height / 2) - 20
+        // Yaw-control timers
+        Timer {
+          id: yawIncreaseTimer
+          repeat: true
+          interval: bgAnimationDuration
+          onTriggered: {
+            steeringWheel.rotation += 1;
+            CarControl.changeYaw(1);
+          }
+        }
+        Timer {
+          id: yawDecreaseTimer
+          repeat: true
+          interval: bgAnimationDuration
+          onTriggered: {
+            steeringWheel.rotation -= 1;
+            CarControl.changeYaw(-1);
           }
         }
       }

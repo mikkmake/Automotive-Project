@@ -22,4 +22,7 @@ Item {
       }
     }
   }
+  Text {
+    text: "VELOCITY:" + CarControl.velocity.toFixed(2);
+  }
 }

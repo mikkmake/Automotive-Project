@@ -7,6 +7,10 @@ Latest screenshot from ./documentation/Images/
 
 <img src="documentation/Images/Screenshot0806.png"></img>
 
+## 17.06.
+
+Implemented velocity calculation from 3D vectors.
+
 ## 07. & 08.06.
 
 Battled with LoopingImage to make it work first alone, then in the project use-case. I dread it will break at some point or not bend to the requirements of other features.
@@ -26,6 +30,10 @@ Test in class
 Test commit
 
 # Catalogue of Failures
+
+## 17.06.
+
+Wanted to add velocity calculated from 3D vectors based on yaw and pitch. Math checked out, did checks on pen and paper, what is wrong? Well it turns out the standard sin() and cos() take in RADIANS (as it is the SI-unit), not degrees from 0 to 360. Way too much spent researching nothing.
 
 ## 08.06.
 

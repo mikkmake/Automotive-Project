@@ -18,8 +18,8 @@ Rectangle {
   property alias imgWidth: viewImage.width
   property alias imgHeight: viewImage.height
   // Properties to control image movement
-  property int targetX: 0
-  property int targetY: 0
+  property int targetX
+  property int targetY
   // These placeholders are the maximum dimensions to get expected behavior
   width: viewImage.width / 2
   height: viewImage.height / 2

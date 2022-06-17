@@ -12,6 +12,13 @@ CarControl::CarControl(QObject *parent)
   m_yaw = 0.0;
   m_pitch = 0.0;
   m_acceleration = 0.0;
+  m_velocity = 0.0;
+  m_velocityVector = new QVector3D(0.0, 0.0, 0.0);
+  // Control state by timer
+  m_stateTimer = new QTimer;
+  m_stateTimer->setInterval(50);
+  connect(m_stateTimer, &QTimer::timeout, this, &CarControl::updateState);
+  m_stateTimer->start();
 }
 
 bool CarControl::turnedOn() const
@@ -25,7 +32,6 @@ void CarControl::setTurnedOn(bool newTurnedOn)
     return;
   m_turnedOn = newTurnedOn;
   qDebug() << Q_FUNC_INFO;
-  qDebug() << "flipped turnedOn";
   emit turnedOnChanged();
 }
 
@@ -36,10 +42,8 @@ double CarControl::yaw() const
 
 void CarControl::changeYaw(double change)
 {
-  qDebug() << Q_FUNC_INFO;
   if (!m_turnedOn) return;
   m_yaw = changeDegree(m_yaw, change);
-  qDebug() << "Emitting yawChanged signal";
   emit yawChanged(change);
 }
 
@@ -50,7 +54,6 @@ double CarControl::pitch() const
 
 void CarControl::changePitch(double change)
 {
-  qDebug() << Q_FUNC_INFO;
   if (!m_turnedOn) return;
   m_pitch = changeDegree(m_pitch, change);
   emit pitchChanged(change);
@@ -76,14 +79,36 @@ double CarControl::acceleration() const
 void CarControl::changeAcceleration(double change)
 {
   if (m_acceleration + change >= 5.0) {
-    qDebug() << "Acceleration limit reached";
     return;
   } else if (m_acceleration + change < 0) {
-    qDebug() << "Acceleration can't go below zero";
     m_acceleration = 0.0;
     return;
   }
-  qDebug() << "changing m_acceleration " << m_acceleration << " by " << change;
   m_acceleration += change;
   emit accelerationChanged();
+}
+
+// Continuously update speed
+void CarControl::updateState()
+{
+  if (m_acceleration > 0.0) {
+      double newVelocity = 9.81 * m_acceleration * 0.05;
+      // Create new vector to add to old vector
+      QVector3D newVector = QVector3D(
+        newVelocity * cos(m_yaw * M_PI /180.0) * cos(m_pitch * M_PI /180.0),
+        newVelocity * sin(m_yaw * M_PI / 180.0) * cos(m_pitch * M_PI / 180.0),
+        newVelocity * sin(m_pitch * M_PI / 180.0)
+
+      );
+      *m_velocityVector += newVector;
+      qDebug() << newVector.x() << " " << newVector.y() << " " << newVector.z();
+      qDebug() << m_velocityVector->x() << " " << m_velocityVector->y() << " " << m_velocityVector->z();
+      m_velocity = m_velocityVector->length();
+      emit velocityChanged();
+    }
+}
+
+double CarControl::velocity() const
+{
+  return m_velocity;
 }

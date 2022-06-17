@@ -3,6 +3,8 @@
 
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlEngine>
+#include <QTimer>
+#include <QVector3D>
 
 class CarControl : public QObject
 {
@@ -11,6 +13,7 @@ class CarControl : public QObject
   Q_PROPERTY(double yaw READ yaw WRITE changeYaw NOTIFY yawChanged)
   Q_PROPERTY(double pitch READ pitch WRITE changePitch NOTIFY pitchChanged)
   Q_PROPERTY(double acceleration READ acceleration NOTIFY accelerationChanged)
+  Q_PROPERTY(double velocity READ velocity NOTIFY velocityChanged)
   QML_NAMED_ELEMENT(CarControl)
   QML_SINGLETON
 
@@ -29,6 +32,8 @@ public:
   double acceleration() const;
   Q_INVOKABLE void changeAcceleration(double change);
 
+  double velocity() const;
+
 public slots:
 
 
@@ -41,14 +46,20 @@ signals:
 
   void accelerationChanged();
 
+  void velocityChanged();
+
 private:
   bool m_turnedOn;
   double m_yaw;
   double m_pitch;
+  QTimer *m_stateTimer;
+  QVector3D *m_velocityVector;
 
+  void updateState();
   // Avoid copy paste logic as roll, yaw, and pitch all follow the same rules
   double changeDegree(double degree, double change);
   double m_acceleration;
+  double m_velocity;
 };
 
 #endif // CARCONTROL_H
