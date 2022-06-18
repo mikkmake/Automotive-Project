@@ -133,6 +133,10 @@ Window {
           }
         }
       }
+      YawGauge {
+        x: 620
+        y: 360
+      }
 
       // Only the element with focus can take KB-input -> everything handled here
       focus: true
