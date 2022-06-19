@@ -27,6 +27,8 @@ Updated interior design.
 
 Have graphics ready to go and an initial layout. Star graphics are public domain, car-interior graphics <a href="http://www.freepik.com">Designed by macrovector / Freepik</a>
 
+Velocity Gauge graphics from sidik arasid at <a href="https://www.vecteezy.com/vector-art/7635658-speedometer-icon-design-template">Web Vectors by Vecteezy</a>
+
 ## 01.06.
 Test in class
 
