@@ -29,4 +29,7 @@ Image {
       text: CarControl.yaw
     }
   }
+  Component.onCompleted: {
+    console.log("yaw h" + height + "w" + width)
+  }
 }
