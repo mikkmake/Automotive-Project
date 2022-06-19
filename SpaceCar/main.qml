@@ -109,6 +109,18 @@ Window {
           }
         }
       }
+      YawGauge {
+        x: 620
+        y: 360
+      }
+      PitchGauge {
+        x: 720
+        y: 360
+      }
+      AccelerationGauge {
+        x: 400
+        y: 260
+      }
       SteeringWheel {
         id: steeringWheel
         x: 150
@@ -132,14 +144,6 @@ Window {
             CarControl.changeYaw(-1);
           }
         }
-      }
-      YawGauge {
-        x: 620
-        y: 360
-      }
-      PitchGauge {
-        x: 720
-        y: 360
       }
 
       // Only the element with focus can take KB-input -> everything handled here

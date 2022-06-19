@@ -35,6 +35,7 @@ qt_add_qml_module(appSpaceCar
       BrakePedal.qml
       YawGauge.qml
       PitchGauge.qml
+      AccelerationGauge.qml
     RESOURCES
       images/Stars_quadrants.png
       images/Interior-background_alpha_smaller.png
@@ -50,6 +51,8 @@ qt_add_qml_module(appSpaceCar
       images/Arrow.png
       images/RoundGauge/RoundGaugeBackground.png
       images/RoundGauge/RoundGaugeRim.png
+      images/AccelerationGauge.png
+      images/AccelerationGaugeMask.png
 )
 
 set_target_properties(appSpaceCar PROPERTIES

@@ -12,12 +12,6 @@ Item {
       x: 30; y: 30
       spacing: 10
       Text {
-        text: "YAW: " + CarControl.yaw
-      }
-      Text {
-        text: "PITCH: " + CarControl.pitch
-      }
-      Text {
         text: "ACCELERATION: " + CarControl.acceleration.toFixed(2)
       }
     }

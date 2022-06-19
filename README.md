@@ -5,7 +5,11 @@ Directory "SpaceCar" contains the project. Within "code" is just a testing groun
 
 Latest screenshot from ./documentation/Images/
 
-<img src="documentation/Images/Screenshot0806.png"></img>
+<img src="documentation/Images/Screenshot_1906.png"></img>
+
+## 18.06.
+
+Implemented simple gauges for acceleration, yaw, and pitch.
 
 ## 17.06.
 
