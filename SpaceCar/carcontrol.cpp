@@ -64,10 +64,10 @@ double CarControl::changeDegree(double degree, double change)
   // Hardcoding 360 degrees should be fine. It's not about to change
   degree += change;
   // Using whiles here to not break behavior if change is something redonculous
-  while (degree >= 360.0)
+  while (degree >= 180.0)
     degree -= 360.0;
-  while (degree < 0)
-    degree += 360;
+  while (degree < -180.0)
+    degree += 360.0;
   return degree;
 }
 

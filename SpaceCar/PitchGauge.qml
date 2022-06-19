@@ -15,8 +15,6 @@ Item {
       height: 3
       width: 50
       color: "white"
-      // border.width: 1
-      // border.color: "black"
       anchors.centerIn: parent
     }
     Rectangle {
@@ -24,10 +22,8 @@ Item {
       height: 3
       width: 30
       color: "white"
-      // x: parent.width / 2 - width / 2
-      // y: parent.height / 2 - height / 2
       anchors.horizontalCenter: parent.horizontalCenter
-      y: (gaugeBg.height / 360) * CarControl.pitch
+      y: parent.height / 2 + ((parent.height / 360.0) * CarControl.pitch)
     }
     Image {
       id: gaugeRim
