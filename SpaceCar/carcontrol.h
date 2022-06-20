@@ -5,6 +5,7 @@
 #include <QtQml/QQmlEngine>
 #include <QTimer>
 #include <cmath>
+#include <math.h>
 #include <QVector3D>
 
 class CarControl : public QObject

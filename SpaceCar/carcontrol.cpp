@@ -108,8 +108,8 @@ void CarControl::updateState()
       emit velocityChanged();
       // Figure out where velocity is pointing
       newVector = m_velocityVector->normalized();
-      m_velocityPitch = asin((newVector.z())) * 180.0 /M_PI;
-      m_velocityYaw = asin((newVector.y())) * 180.0 /M_PI;
+      m_velocityPitch = asin(newVector.z()) *180/M_PI;
+      m_velocityYaw = atan2(newVector.y(), newVector.x()) *180/M_PI;
       emit velocityPitchChanged();
       emit velocityYawChanged();
     }

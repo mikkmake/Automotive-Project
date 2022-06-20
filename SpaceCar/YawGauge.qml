@@ -1,7 +1,7 @@
 import QtQuick 2.0
 import SpaceCar
 
-Image {
+Item {
   id: root
   height: gauge.height + valueBox.height
   width: gauge.width
@@ -14,7 +14,22 @@ Image {
       anchors.centerIn: parent
       rotation: CarControl.yaw
     }
+    Rectangle {
+      id: velocityYawIndicator
+      color: "red"
+      radius: height / 2
+      width: 5; height: 5
+      x: parent.width / 2 - width / 2
+      y: height / 2
+      transform: Rotation {
+        origin.y: gauge.height / 2
+        angle: CarControl.velocityYaw
+      }
+
+      rotation: CarControl.velocityYaw
+    }
   }
+
   Rectangle {
     id: valueBox
     anchors {
