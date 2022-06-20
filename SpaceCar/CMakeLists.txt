@@ -53,6 +53,9 @@ qt_add_qml_module(appSpaceCar
       images/RoundGauge/RoundGaugeRim.png
       images/AccelerationGauge.png
       images/AccelerationGaugeMask.png
+
+      fonts/TESLA.ttf
+      fonts/usuzi.ttf
 )
 
 set_target_properties(appSpaceCar PROPERTIES

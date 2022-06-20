@@ -11,16 +11,22 @@ Item {
   width: base.width; height: base.height
   // What we need access to from outside
   property alias rotation: base.rotation
+  property string customFont
   Image {
     id: base
     rotation: 0
     source: "images/SteeringWheel/Steeringwheel-base.png"
-    onRotationChanged: { console.log("rot: " + rotation); }
     // Images already aligned -> center everything in parent
     Image {
       id: middle
       source: "images/SteeringWheel/Steeringwheel-middle.png"
       anchors.centerIn: parent
+      Text {
+        anchors.centerIn: parent
+        font.family: customFont
+        text: "EDISON"
+        font.pixelSize: 26
+      }
     }
     Image {
       id: leftButton
@@ -34,8 +40,8 @@ Item {
     }
     // Disallow too much rotation
     BoundaryRule on rotation {
-      minimum: -50
-      maximum: 50
+      minimum: -15
+      maximum: 15
     }
   }
 }

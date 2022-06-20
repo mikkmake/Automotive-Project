@@ -5,6 +5,7 @@ import SpaceCar
 Image {
   id: root
   source: "images/AccelerationGauge.png"
+  property string customFont
   Shape {
     id: mask
     ShapePath {
@@ -26,6 +27,8 @@ Image {
   Text {
     x: 85; y: 105
     text: CarControl.acceleration.toFixed(1) + " G"
-    font.pixelSize: 16
+    font.pixelSize: 18
+    font.family: customFont
+    color: "lightgray"
   }
 }

@@ -82,6 +82,7 @@ void CarControl::changeAcceleration(double change)
     return;
   } else if (m_acceleration + change < 0) {
     m_acceleration = 0.0;
+    emit accelerationChanged();
     return;
   }
   m_acceleration += change;

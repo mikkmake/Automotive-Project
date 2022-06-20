@@ -12,6 +12,15 @@ Window {
     // This controls both the tickrate of Yaw & Pitch change, and background animation duration. Change at your own peril
     property int bgAnimationDuration: 10
 
+    FontLoader {
+      id: teslaFont
+      source: "fonts/TESLA.ttf"
+    }
+    FontLoader {
+      id: usuziFont
+      source: "fonts/usuzi.ttf"
+    }
+
     // Moving background (out-of-windshield view)
     LoopingImage {
       id: loopingImage
@@ -120,11 +129,35 @@ Window {
       AccelerationGauge {
         x: 400
         y: 260
+        customFont: usuziFont.name
       }
+      Rectangle {
+        id: velocityGauge
+        x: 250
+        y: 360
+        height: velocityText.height
+        Text {
+          id: velocityText
+          text: (CarControl.velocity * 3.6).toFixed(0)
+          font.pixelSize: 16
+          font.family: usuziFont.name
+          color: "lightgray"
+          Text {
+            text: "km/h"
+            color: "lightgray"
+            font.family: usuziFont.name
+            font.pixelSize: 16
+            anchors.top: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+          }
+        }
+      }
+
       SteeringWheel {
         id: steeringWheel
         x: 150
         y: (window.height / 2) - (height / 2) - 20
+        customFont: teslaFont.name
         // Yaw-control timers
         Timer {
           id: yawIncreaseTimer
