@@ -22,11 +22,9 @@ Item {
       x: parent.width / 2 - width / 2
       y: height / 2
       transform: Rotation {
-        origin.y: gauge.height / 2
+        origin.y: gauge.height / 2 - 2.5
         angle: CarControl.velocityYaw
       }
-
-      rotation: CarControl.velocityYaw
     }
   }
 
