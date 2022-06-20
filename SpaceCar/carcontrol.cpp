@@ -7,7 +7,7 @@ CarControl::CarControl(QObject *parent)
   : QObject{parent}
 {
   // Control starts off as shut down
-  m_turnedOn = true;
+  m_turnedOn = false;
   // Orientation and acceleration starts at zeros
   m_yaw = 0.0;
   m_pitch = 0.0;
@@ -80,6 +80,7 @@ double CarControl::acceleration() const
 
 void CarControl::changeAcceleration(double change)
 {
+  if (!m_turnedOn) return;
   if (m_acceleration + change >= 5.0) {
     return;
   } else if (m_acceleration + change < 0) {

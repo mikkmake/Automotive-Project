@@ -152,6 +152,10 @@ Window {
           }
         }
       }
+      PowerButton {
+        x: 560
+        y: 450
+      }
 
       SteeringWheel {
         id: steeringWheel

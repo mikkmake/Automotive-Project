@@ -53,6 +53,8 @@ qt_add_qml_module(appSpaceCar
       images/RoundGauge/RoundGaugeRim.png
       images/AccelerationGauge.png
       images/AccelerationGaugeMask.png
+      images/power_button_off.png
+      images/power_button_on.png
 
       fonts/TESLA.ttf
       fonts/usuzi.ttf
