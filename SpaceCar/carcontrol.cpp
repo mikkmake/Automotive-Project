@@ -14,6 +14,8 @@ CarControl::CarControl(QObject *parent)
   m_acceleration = 0.0;
   m_velocity = 0.0;
   m_velocityVector = new QVector3D(0.0, 0.0, 0.0);
+  m_velocityYaw = 0.0;
+  m_velocityPitch = 0.0;
   // Control state by timer
   m_stateTimer = new QTimer;
   m_stateTimer->setInterval(50);
@@ -102,14 +104,28 @@ void CarControl::updateState()
 
       );
       *m_velocityVector += newVector;
-      qDebug() << newVector.x() << " " << newVector.y() << " " << newVector.z();
-      qDebug() << m_velocityVector->x() << " " << m_velocityVector->y() << " " << m_velocityVector->z();
       m_velocity = m_velocityVector->length();
       emit velocityChanged();
+      // Figure out where velocity is pointing
+      newVector = m_velocityVector->normalized();
+      m_velocityPitch = asin((newVector.z())) * 180.0 /M_PI;
+      m_velocityYaw = asin((newVector.y())) * 180.0 /M_PI;
+      emit velocityPitchChanged();
+      emit velocityYawChanged();
     }
 }
 
 double CarControl::velocity() const
 {
   return m_velocity;
+}
+
+double CarControl::velocityYaw() const
+{
+  return m_velocityYaw;
+}
+
+double CarControl::velocityPitch() const
+{
+  return m_velocityPitch;
 }

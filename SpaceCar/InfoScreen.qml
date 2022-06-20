@@ -12,7 +12,10 @@ Item {
       x: 30; y: 30
       spacing: 10
       Text {
-        text: "ACCELERATION: " + CarControl.acceleration.toFixed(2)
+        text: "vYaw: " + CarControl.velocityYaw
+      }
+      Text {
+        text: "vPitch: " + CarControl.velocityPitch
       }
     }
   }
