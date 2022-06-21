@@ -9,13 +9,9 @@ CarControl::CarControl(QObject *parent)
   // Control starts off as shut down
   m_turnedOn = false;
   // Orientation and acceleration starts at zeros
-  m_yaw = 0.0;
-  m_pitch = 0.0;
-  m_acceleration = 0.0;
-  m_velocity = 0.0;
+  m_yaw = m_pitch = m_acceleration = m_velocity = m_velocityYaw
+      = m_velocityPitch = 0.0;
   m_velocityVector = new QVector3D(0.0, 0.0, 0.0);
-  m_velocityYaw = 0.0;
-  m_velocityPitch = 0.0;
   // Control state by timer
   m_stateTimer = new QTimer;
   m_stateTimer->setInterval(50);
@@ -33,8 +29,11 @@ void CarControl::setTurnedOn(bool newTurnedOn)
   if (m_turnedOn == newTurnedOn)
     return;
   m_turnedOn = newTurnedOn;
-  qDebug() << Q_FUNC_INFO;
   emit turnedOnChanged();
+  if (!m_turnedOn) {
+      m_acceleration = 0.0;
+      emit accelerationChanged();
+    }
 }
 
 double CarControl::yaw() const

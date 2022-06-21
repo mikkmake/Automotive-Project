@@ -9,9 +9,10 @@ Window {
     height: 980
     visible: true
     title: qsTr("SpaceCar")
-    // This controls both the tickrate of Yaw & Pitch change, and background animation duration. Change at your own peril
+    // This controls both the tickrate of Yaw & Pitch change, and background animation duration.
     property int bgAnimationDuration: 10
 
+    // Custom fonts
     FontLoader {
       id: teslaFont
       source: "fonts/TESLA.ttf"
@@ -28,7 +29,7 @@ Window {
       height: window.height
       imageSource: "images/Stars_quadrants.png"
       animationDuration: bgAnimationDuration
-      // Connect CarControl orientation to background movement in a sensible way
+      // Connect CarControl orientation to background movement
       Connections {
         target: CarControl
         function onYawChanged(change) {
@@ -44,6 +45,7 @@ Window {
     Image {
       id: interior
       source: "images/Interior-background_alpha_smaller.png"
+      // Stick to control pitch
       PitchStick {
         id: stick
         y: interior.height - height + 20
@@ -77,6 +79,7 @@ Window {
         }
       }
 
+      // Useless infoscreen
       InfoScreen {
         y: 500
         anchors {
@@ -85,6 +88,7 @@ Window {
         }
       }
 
+      // GAS GAS GAS
       GasPedal {
         id: gasPedal
         x: 480
@@ -102,6 +106,7 @@ Window {
         }
       }
 
+      // Useless brakepedal
       BrakePedal {
         id: brakePedal
         x: 350
@@ -118,13 +123,17 @@ Window {
           }
         }
       }
+
+      // Gauges for carcontrol values
       YawGauge {
         x: 620
         y: 360
+        customFont: usuziFont.name
       }
       PitchGauge {
         x: 720
         y: 360
+        customFont: usuziFont.name
       }
       AccelerationGauge {
         x: 400

@@ -6,6 +6,7 @@ Image {
   id: root
   source: "images/AccelerationGauge.png"
   property string customFont
+  // Draw a semi-transparent arc over gauge to simulate it filling up
   Shape {
     id: mask
     ShapePath {
@@ -24,6 +25,7 @@ Image {
       }
     }
   }
+  // Show numerical value too
   Text {
     x: 85; y: 105
     text: CarControl.acceleration.toFixed(1) + " G"

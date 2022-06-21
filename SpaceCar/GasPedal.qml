@@ -8,14 +8,9 @@ Item {
   Image {
     id: pedal
     source: "images/Pedal3.png"
-
+    fillMode: Image.Stretch
   }
   Behavior on acceleration {
-    // acceleration is 0-5
-    // want: on increase, scale down pedal
-    // decrease scale by 0.1 per accel
-    // NumberAnimation on scale {
-
-    // }
+    //Pedalanimation
   }
 }

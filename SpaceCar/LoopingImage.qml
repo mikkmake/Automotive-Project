@@ -12,9 +12,6 @@ Rectangle {
   id: viewPort // more instructive name than root?
   required property string imageSource
   required property int animationDuration
-  // Alias image coordinates for use outside component
-  // property alias imgX: viewImage.x
-  // property alias imgY: viewImage.y
   property alias imgWidth: viewImage.width
   property alias imgHeight: viewImage.height
   // Properties to control image movement

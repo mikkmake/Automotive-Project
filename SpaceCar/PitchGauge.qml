@@ -5,11 +5,14 @@ Item {
   id: root
   height: gaugeRim.height + valueBox.height
   width: gaugeRim.width
+  property string customFont
   Image {
     id: gaugeBg
     source: "images/RoundGauge/RoundGaugeBackground.png"
     anchors.horizontalCenter: parent.horizontalCenter
     y: (gaugeRim.height - height) / 2
+
+    // Show a mid-line at 0 degrees
     Rectangle {
       id: midLineLeft
       height: 2
@@ -27,6 +30,7 @@ Item {
       anchors.right: parent.right
     }
 
+    // Moving pitch-indicator consists of two lines
     Rectangle {
       id: pitchLineLeft
       height: 2
@@ -45,6 +49,8 @@ Item {
       anchors.rightMargin: midLineRight.width
       y: parent.height / 2 - height / 2 + ((parent.height / 360.0) * CarControl.pitch)
     }
+
+    // Marks for -90 and 90 degrees
     Rectangle {
       id: negativeMark
       height: 2
@@ -63,6 +69,8 @@ Item {
       anchors.bottom: parent.bottom
       anchors.bottomMargin: parent.height / 4 - 1
     }
+
+    // Display pitch-component of current velocity-vector
     Rectangle {
       id: velocityPitchIndicator
       height: 6; width: 6
@@ -78,6 +86,8 @@ Item {
       anchors.centerIn: parent
     }
   }
+
+  // Display numerical value
   Rectangle {
     id: valueBox
     height: pitchText.height
@@ -89,9 +99,9 @@ Item {
     Text {
       id: pitchText
       text: CarControl.pitch
+      font.family: customFont
+      font.pixelSize: 20
+      anchors.horizontalCenter: parent.horizontalCenter
     }
-  }
-  Component.onCompleted: {
-    console.log("h" + height + "w" + width)
   }
 }

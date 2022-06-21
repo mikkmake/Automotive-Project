@@ -5,15 +5,19 @@ Item {
   id: root
   height: gauge.height + valueBox.height
   width: gauge.width
+  property string customFont
   Image {
     id: gauge
     source: "images/RoundGauge.png"
+    // Display current yaw as an arrow
     Image {
       id: arrow
       source: "images/Arrow.png"
       anchors.centerIn: parent
       rotation: CarControl.yaw
     }
+
+    // Display yaw-component of current velocity vector
     Rectangle {
       id: velocityYawIndicator
       color: "red"
@@ -28,6 +32,7 @@ Item {
     }
   }
 
+  // Display numerical value
   Rectangle {
     id: valueBox
     anchors {
@@ -40,9 +45,9 @@ Item {
     Text {
       id: yawText
       text: CarControl.yaw
+      font.family: customFont
+      font.pixelSize: 20
+      anchors.horizontalCenter: parent.horizontalCenter
     }
-  }
-  Component.onCompleted: {
-    console.log("yaw h" + height + "w" + width)
   }
 }

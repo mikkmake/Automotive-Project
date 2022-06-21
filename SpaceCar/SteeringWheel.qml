@@ -9,7 +9,6 @@ import Qt.labs.animation
 Item {
   id: root
   width: base.width; height: base.height
-  // What we need access to from outside
   property alias rotation: base.rotation
   property string customFont
   Image {
@@ -28,6 +27,8 @@ Item {
         font.pixelSize: 26
       }
     }
+
+    // Useless buttons
     Image {
       id: leftButton
       source: "images/SteeringWheel/Steeringwheel-leftbutton.png"
@@ -38,6 +39,7 @@ Item {
       source: "images/SteeringWheel/Steeringwheel-rightbutton.png"
       anchors.centerIn: parent
     }
+
     // Disallow too much rotation
     BoundaryRule on rotation {
       minimum: -15

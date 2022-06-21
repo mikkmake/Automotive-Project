@@ -4,7 +4,6 @@
 #include <QtQml/QQmlComponent>
 #include <QtQml/QQmlEngine>
 #include <QTimer>
-#include <cmath>
 #include <math.h>
 #include <QVector3D>
 
@@ -68,6 +67,8 @@ private:
   QVector3D *m_velocityVector;
 
   void updateState();
+  double degreesToRadians(double degrees);
+  double radiansToDegrees(double radians);
   // Avoid copy paste logic as roll, yaw, and pitch all follow the same rules
   double changeDegree(double degree, double change);
   double m_acceleration;
