@@ -5,7 +5,11 @@ Directory "SpaceCar" contains the project. Within "code" is just a testing groun
 
 Latest screenshot from ./documentation/Images/
 
-<img src="documentation/Images/Screenshot_1906.png"></img>
+<img src="documentation/Images/Screenshot_2106.png"></img>
+
+## 20.06.
+
+Calculate yaw and pitch components for the velocity vector and display them as red dots on directional gauges.
 
 ## 18.06.
 

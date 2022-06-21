@@ -60,6 +60,7 @@ void CarControl::changePitch(double change)
   emit pitchChanged(change);
 }
 
+// Control degree values to remain within bounds
 double CarControl::changeDegree(double degree, double change)
 {
   // Hardcoding 360 degrees should be fine. It's not about to change
@@ -91,28 +92,37 @@ void CarControl::changeAcceleration(double change)
   emit accelerationChanged();
 }
 
-// Continuously update speed
+// Continuously update velocity vector
 void CarControl::updateState()
 {
   if (m_acceleration > 0.0) {
       double newVelocity = 9.81 * m_acceleration * 0.05;
       // Create new vector to add to old vector
       QVector3D newVector = QVector3D(
-        newVelocity * cos(m_yaw * M_PI /180.0) * cos(m_pitch * M_PI /180.0),
-        newVelocity * sin(m_yaw * M_PI / 180.0) * cos(m_pitch * M_PI / 180.0),
-        newVelocity * sin(m_pitch * M_PI / 180.0)
-
+        newVelocity * cos(degreesToRadians(m_yaw)) * cos(degreesToRadians(m_pitch)),
+        newVelocity * sin(degreesToRadians(m_yaw)) * cos(degreesToRadians(m_pitch)),
+        newVelocity * sin(degreesToRadians(m_pitch))
       );
       *m_velocityVector += newVector;
       m_velocity = m_velocityVector->length();
       emit velocityChanged();
       // Figure out where velocity is pointing
       newVector = m_velocityVector->normalized();
-      m_velocityPitch = asin(newVector.z()) *180/M_PI;
+      m_velocityPitch = radiansToDegrees(asin(newVector.z()));
       m_velocityYaw = atan2(newVector.y(), newVector.x()) *180/M_PI;
       emit velocityPitchChanged();
       emit velocityYawChanged();
     }
+}
+
+double CarControl::degreesToRadians(double degrees)
+{
+  return degrees * M_PI / 180.0;
+}
+
+double CarControl::radiansToDegrees(double radians)
+{
+  return radians * 180.0 / M_PI;
 }
 
 double CarControl::velocity() const
